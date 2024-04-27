@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}
+				Welcome!
+
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{# {{ encore_entry_link_tags('app') }} #}
+
+			<link
+			rel="stylesheet" type="text/css" href="{{ asset('asset/app-assets/vendors/css/forms/select/select2.min.css') }}">
+
+			<!-- BEGIN: Vendor CSS-->
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/vendors.min.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/charts/apexcharts.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/extensions/toastr.min.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/tables/ag-grid/ag-grid.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/tables/ag-grid/ag-theme-material.css') }}">
+
+			<!-- END: Vendor CSS-->
+
+			<!-- BEGIN: Theme CSS-->
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/bootstrap.css') }}"> <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/bootstrap-extended.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/colors.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/components.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/themes/dark-layout.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/themes/bordered-layout.css') }}">
+			<link
+			rel="stylesheet" type="text/css" href="{{ asset('asset/css/themes/semi-dark-layout.css') }}">
+
+			<!-- BEGIN: Page CSS-->
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/core/menu/menu-types/vertical-menu.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/pages/dashboard-ecommerce.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/plugins/charts/chart-apex.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/plugins/extensions/ext-component-toastr.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/plugins/tables/table-ag-grid.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/all.min.css') }}">
+
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/fontawesome.min.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/sweetalert2.min.css') }}">
+
+
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/app-assets/vendors/css/pickers/pickadate/pickadate.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/app-assets/css/plugins/forms/pickers/form-flat-pickr.css') }}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/app-assets/css/plugins/forms/pickers/form-pickadate.css') }}">
+
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/app-assets/css/pages/app-invoice.css') }}">
+
+			<link rel="stylesheet" type="text/css" href="{{ asset('asset/app-assets/css/plugins/forms/form-validation.css') }}">
+
+			<!-- END: Page CSS-->
+
+			<!-- BEGIN: Custom CSS-->
+		<link
+			rel="stylesheet" type="text/css" href="{{ asset('asset//assets/css/style.css') }}"> <!-- END: Custom CSS-->
+
+		{% endblock %}
+
+	</head>
+	<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+		{% block sidebar %}
+			{{ include('admin/components/navbar.html.twig') }}
+			{{ include('admin/components/sidebar.html.twig') }}
+
+		{% endblock %}
+		<div class="app-content content " style="padding-bottom : 2em ;"> {% block body %}{% endblock %}
+			</div>
+
+			{# {{ include('admin/components/footer.html.twig') }} #}
+			<script src="{{ asset('asset/js/jquery-3.7.1.min.js') }}"></script>
+			<script src="{{ asset('asset/js/bootstrap.bundle.min.js') }}"></script>
+
+			<script src="{{ asset('asset/app-assets/vendors/js/extensions/dropzone.min.js') }}"></script>
+
+			<!-- BEGIN: Vendor JS-->
+			<script src="{{ asset('asset/vendors/js/vendors.min.js') }}"></script>
+			<!-- BEGIN Vendor JS-->
+
+			<!-- BEGIN: Page Vendor JS-->
+			<script src="{{ asset('asset/app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+			<!-- END: Page Vendor JS-->
+
+			<!-- BEGIN: Page Vendor JS-->
+			<script src="{{ asset('asset/vendors/js/charts/apexcharts.min.js') }}"></script>
+			<script src="{{ asset('asset/vendors/js/extensions/toastr.min.js') }}"></script>
+			<!-- END: Page Vendor JS-->
+
+			<!-- BEGIN: Theme JS-->
+			<script src="{{ asset('asset/js/core/app-menu.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+			<script src="{{ asset('asset/js/core/app.js') }}"></script>
+			<!-- END: Theme JS-->
+
+			<!-- BEGIN: Page JS-->
+			{# <script src="{{asset('asset/js/scripts/pages/dashboard-ecommerce.js')}}"></script> #}
+			<!-- END: Page JS--><script src="{{ asset('asset/vendors/js/tables/ag-grid/ag-grid-community.min.noStyle.js') }}"> </script>
+			<script src="{{ asset('asset/js/scripts/tables/table-ag-grid.js') }}"></script>
+			<script src="{{ asset('asset/js/all.min.js') }}"></script>
+			<script src="{{ asset('asset/js/fontawesome.min.js') }}"></script>
+			<script src="{{ asset('asset/js/sweetalert2.all.min.js') }}"></script>
+
+
+			<!-- BEGIN: Page JS-->
+			<script src="{{ asset('asset/app-assets/js/scripts/forms/form-select2.js') }}"></script>
+			<!-- END: Page JS-->
+
+			<script src="{{ asset('asset/app-assets/vendors/js/pickers/pickadate/picker.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/vendors/js/pickers/pickadate/picker.time.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/vendors/js/pickers/pickadate/legacy.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/vendors/js/charts/chart.min.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/js/scripts/forms/form-input-mask.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/js/scripts/forms/form-file-uploader.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/js/scripts/forms/pickers/form-pickers.js') }}"></script>
+
+			<!--form repetear -->
+			<script src="{{ asset('asset/app-assets/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
+			{# <script src="{{asset('asset/app-assets/js/scripts/forms/form-repeater.js')}}"></script> #}
+
+			<script src="{{ asset('asset/app-assets/js/scripts/pages/app-invoice.js') }}"></script>
+			<script src="{{ asset('asset/app-assets/js/scripts/charts/chart-chartjs.js') }}"></script>
+
+			<script src="{{ asset('asset/app-assets/js/scripts/forms/form-validation.js') }}"></script>
+
+			<script>
+				$(window).on('load', function () {
+if (feather) {
+feather.replace({width: 14, height: 14});
+}
+})
+			</script>
+
+			{% block javascripts %}
+				{# {{ encore_entry_script_tags('app') }} #}
+			{% endblock %}
+		</body>
+	</html>
