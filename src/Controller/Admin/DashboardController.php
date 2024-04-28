@@ -2,26 +2,34 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Agence;
+use App\Entity\Fonction;
+use App\Controller\Admin\AgenceCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Controller\Admin\FonctionCrudController;
+use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
+#[Route('/admin', name: 'admin.dashboard.')]
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
-        return parent::index();
+        // return parent::index();
 
         /**
          * Pour rediriger le tableau de bord
          */
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(ProductCrudController::class)->generateUrl());
 
+        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        return $this->redirect($adminUrlGenerator->setController(AgenceCrudController::class)->generateUrl());
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -43,12 +51,25 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Base Sf6');
+            ->setTitle('MI-LAH');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::section('User');
+        yield MenuItem::subMenu('More', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Show User', 'fas fa-eye', User::class),
+            MenuItem::linkToCrud('Add User', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW)
+        ]);
+        yield MenuItem::section('Agency');
+        yield MenuItem::subMenu('More', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Show Agency', 'fas fa-eye', Agence::class),
+            MenuItem::linkToCrud('Add Agency', 'fas fa-plus', Agence::class)->setAction(Crud::PAGE_NEW)
+        ]);
+        yield MenuItem::section('Function');
+        yield MenuItem::subMenu('More', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Show Function', 'fas fa-eye', Fonction::class),
+            MenuItem::linkToCrud('Add Function', 'fas fa-plus', Fonction::class)->setAction(Crud::PAGE_NEW)
+        ]);
     }
 }
