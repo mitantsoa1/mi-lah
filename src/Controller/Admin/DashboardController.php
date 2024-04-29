@@ -8,6 +8,7 @@ use App\Controller\Admin\AgenceCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\Admin\FonctionCrudController;
+use App\Entity\Operation;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -70,6 +71,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('More', 'fas fa-bars')->setSubItems([
             MenuItem::linkToCrud('Show Function', 'fas fa-eye', Fonction::class),
             MenuItem::linkToCrud('Add Function', 'fas fa-plus', Fonction::class)->setAction(Crud::PAGE_NEW)
+        ]);
+        yield MenuItem::section('Opération');
+        yield MenuItem::subMenu('More', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Show Operation', 'fas fa-eye', Operation::class),
+            MenuItem::linkToCrud('Add Operation', 'fas fa-plus', Operation::class)->setAction(Crud::PAGE_NEW)
         ]);
     }
 }

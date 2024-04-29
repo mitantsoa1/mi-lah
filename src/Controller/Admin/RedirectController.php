@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,9 +24,9 @@ class RedirectController extends AbstractController
     }
 
     #[Route('/', name: 'app_redirect')]
-    public function index(): Response
+    public function index(UserRepository $userRepository): Response
     {
-        
+
         $token = $this->tokenStorage->getToken();
 
         if ($token !== null && $token->getUser() !== null && $token->getUser() instanceof UserInterface) {
@@ -33,10 +34,16 @@ class RedirectController extends AbstractController
             $user = $token->getUser();
             $roles = $user->getRoles();
 
-            if (in_array('ROLE_ADMIN', $roles)) {
-                return $this->redirectToRoute('admin.dashboard.index');
+            $id = $user->getFonction()->getId();
+
+            if ($id != 4) {
+                if (in_array('ROLE_ADMIN', $roles)) {
+                    return $this->redirectToRoute('admin.dashboard.index');
+                } else {
+                    return $this->redirectToRoute('home');
+                }
             } else {
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('reception');
             }
         } else {
             // L'utilisateur n'est pas connecté

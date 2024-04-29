@@ -18,7 +18,6 @@ class UserSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        dd('eto');
         return [
             BeforeEntityPersistedEvent::class => ['hashUserPassword'],
         ];
@@ -27,7 +26,6 @@ class UserSubscriber implements EventSubscriberInterface
     public function hashUserPassword(BeforeEntityPersistedEvent $event, UserPasswordHasherInterface  $passwordHasher)
     {
         $entity = $event->getEntityInstance();
-        dd($entity);
         if ($entity instanceof User) {
             // Hash the user's password
             $hashedPassword = $passwordHasher->hashPassword($entity, $entity->getPassword());

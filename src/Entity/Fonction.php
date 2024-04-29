@@ -30,9 +30,16 @@ class Fonction
     #[ORM\Column(length: 20)]
     private ?string $code = null;
 
+    /**
+     * @var Collection<int, Operation>
+     */
+    #[ORM\OneToMany(targetEntity: Operation::class, mappedBy: 'fonction')]
+    private Collection $operations;
+
     public function __construct()
     {
         $this->agence = new ArrayCollection();
+        $this->operations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,5 +116,35 @@ class Fonction
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    /**
+     * @return Collection<int, Operation>
+     */
+    public function getOperations(): Collection
+    {
+        return $this->operations;
+    }
+
+    public function addOperation(Operation $operation): static
+    {
+        if (!$this->operations->contains($operation)) {
+            $this->operations->add($operation);
+            $operation->setFonction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperation(Operation $operation): static
+    {
+        if ($this->operations->removeElement($operation)) {
+            // set the owning side to null (unless already changed)
+            if ($operation->getFonction() === $this) {
+                $operation->setFonction(null);
+            }
+        }
+
+        return $this;
     }
 }
