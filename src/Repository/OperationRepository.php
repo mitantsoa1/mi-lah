@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Fonction;
 use App\Entity\Operation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,4 +46,21 @@ class OperationRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function getOperationsWithFonction()
+    {
+        $queryBuilder = $this->createQueryBuilder('o')
+            ->innerJoin(Fonction::class, 'f', 'o.fonction_id = f.id');
+        // ->getQuery()
+        // ->getResult();
+        // Récupérer et afficher la DQL (Doctrine Query Language)
+        $dql = $queryBuilder->getQuery()->getDQL();
+        echo "DQL: $dql";
+
+        // Récupérer et afficher la requête SQL
+        $sql = $queryBuilder->getQuery()->getSQL();
+        echo "SQL: $sql";
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

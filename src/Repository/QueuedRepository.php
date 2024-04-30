@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Operation;
 use App\Entity\Queued;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,4 +46,16 @@ class QueuedRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getQueuedWithOperation()
+    {
+        $now = date("Y-m-d");
+        $query =  $this->createQueryBuilder('q')
+            ->innerJoin(Operation::class, 'o', 'WITH', 'q.type = o.type')
+            ->where("q.createdAt LIKE '$now%'")
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $query;
+    }
 }

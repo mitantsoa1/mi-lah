@@ -16,8 +16,8 @@ class Queued
     #[ORM\Column(length: 50)]
     private ?string $type = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $numero = null;
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $numero = null;
 
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $user = null;
@@ -30,6 +30,9 @@ class Queued
 
     #[ORM\Column(length: 1)]
     private ?string $status = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $position = null;
 
     public function getId(): ?int
     {
@@ -48,12 +51,12 @@ class Queued
         return $this;
     }
 
-    public function getNumero(): ?int
+    public function getNumero(): ?string
     {
         return $this->numero;
     }
 
-    public function setNumero(?int $numero): static
+    public function setNumero(string $numero): static
     {
         $this->numero = $numero;
 
@@ -104,6 +107,18 @@ class Queued
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPosition(): ?string
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?string $position): static
+    {
+        $this->position = $position;
 
         return $this;
     }
