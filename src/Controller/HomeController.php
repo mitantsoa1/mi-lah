@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Operation;
 use App\Controller\BaseController;
 use App\Entity\Queued;
+use App\Repository\FonctionRepository;
 use App\Repository\OperationRepository;
 use App\Repository\QueuedRepository;
 use App\Service\HomeService;
@@ -16,32 +17,41 @@ use Symfony\Component\HttpFoundation\Request;
 class HomeController extends BaseController
 {
     #[Route('/home', name: 'home')]
-    public function index(QueuedRepository $repository, OperationRepository $repo): Response
+    public function index(QueuedRepository $repository): Response
     {
-        $queued = $repository->getQueuedWithOperation();
-        $operations = $repo->findAll();
+        $user = $this->getUser();
+        $profil = $user->getFonction()->getId();
+
+        $agence = $user->getAgence()->getId();
+
+        $queued = $repository->getQueuedWithProfil($profil, $agence);
 
         return $this->render('home/home.html.twig', [
             'queued' => $queued,
-            'operations' => $operations
         ]);
     }
 
     #[Route('/reception', name: 'reception')]
-    public function reception(): Response
+    public function reception(OperationRepository $repo): Response
     {
-        $operations = $this->getRepository(Operation::class)->findBy([], ['fonction' => 'ASC']);
+        $user = $this->getUser();
+        $operations = $repo->findBy([], ['fonction' => 'ASC']);
         return $this->render('home/reception.html.twig', [
             'operations' => $operations,
+            'user' => $user
         ]);
     }
 
     #[Route('/addQueue', name: 'addQueue')]
-    public function addQueue(Request $request, HomeService $homeService)
+    public function addQueue(Request $request, HomeService $homeService, FonctionRepository $repo)
     {
         $value = $request->request->get('value');
         $type = $request->request->get('ticket');
+        $agence = $request->request->get('agence');
         $numero = $homeService->setNumeroticket();
+
+        $position = $repo->findBy(['libelle' => $value]);
+        $idPos = $position[0]->getId();
 
         $nbr = strlen($numero);
 
@@ -64,9 +74,10 @@ class HomeController extends BaseController
         $queued = new Queued;
 
         $queued->setType($type);
-        $queued->setPosition($value);
+        $queued->setPosition($idPos);
         $queued->setNumero($numero);
         $queued->setStatus('A');
+        $queued->setAgence($agence);
         $queued->setCreatedAt(new \DateTimeImmutable());
 
         $this->save($queued);

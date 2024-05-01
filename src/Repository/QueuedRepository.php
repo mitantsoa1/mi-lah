@@ -58,4 +58,20 @@ class QueuedRepository extends ServiceEntityRepository
 
         return $query;
     }
+
+    public function getQueuedWithProfil($pos, $agence)
+    {
+        $now = date("Y-m-d");
+        $query = $this->createQueryBuilder('q')
+            ->where('q.position = :pos')
+            ->andWhere('q.agence = :agence')
+            ->andWhere("q.createdAt LIKE '$now%'")
+            ->setParameter('pos', $pos)
+            ->setParameter('agence', $agence)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $query;
+    }
 }

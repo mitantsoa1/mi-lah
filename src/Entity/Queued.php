@@ -34,6 +34,9 @@ class Queued
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $position = null;
 
+    #[ORM\Column(length: 30)]
+    private ?string $agence = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,18 @@ class Queued
     public function setPosition(?string $position): static
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getAgence(): ?string
+    {
+        return $this->agence;
+    }
+
+    public function setAgence(string $agence): static
+    {
+        $this->agence = $agence;
 
         return $this;
     }

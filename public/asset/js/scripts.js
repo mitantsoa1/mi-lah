@@ -14,11 +14,13 @@
       // const value = this.value;
       const value = button.getAttribute("value");
       const dataId = button.getAttribute("data-id");
+      const dataAgence = button.getAttribute("data-agence");
 
       // Données à envoyer
       const data = new FormData();
       data.append("value", value);
       data.append("ticket", dataId);
+      data.append("agence", dataAgence);
 
       // Options de la requête
       const options = {

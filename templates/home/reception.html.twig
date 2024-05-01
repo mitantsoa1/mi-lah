@@ -34,7 +34,7 @@
 	<div class="example-wrapper">
 		<div class="card-container">
 			{% for operation in operations %}
-				<button class="m-2 btn button" value={{ operation.fonction }} data-id={{ operation.type }}>
+				<button class="m-2 btn button" value={{ operation.fonction }} data-id={{ operation.type }} data-agence={{ user.agence.id}}>
 					<div class="card text-white bg-primary">
 						<center>{{ operation.libelle }}</center>
 					</div>
