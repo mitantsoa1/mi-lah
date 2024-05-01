@@ -62,16 +62,30 @@ class QueuedRepository extends ServiceEntityRepository
     public function getQueuedWithProfil($pos, $agence)
     {
         $now = date("Y-m-d");
-        $query = $this->createQueryBuilder('q')
-            ->where('q.position = :pos')
-            ->andWhere('q.agence = :agence')
-            ->andWhere("q.createdAt LIKE '$now%'")
-            ->setParameter('pos', $pos)
-            ->setParameter('agence', $agence)
-            ->orderBy('q.id', 'ASC')
+
+        if ($agence == 2) {
+            // Siège
+            $query = $this->createQueryBuilder('q')
+                ->where("q.createdAt LIKE '$now%'");
+        } else {
+            if ($pos == 1 || $pos == 2) {
+                // Si caisse ou accueil
+                $query = $this->createQueryBuilder('q')
+                    ->where('q.position = :pos')
+                    ->andWhere('q.agence = :agence')
+                    ->andWhere("q.createdAt LIKE '$now%'")
+                    ->setParameter('pos', $pos)
+                    ->setParameter('agence', $agence);
+            } else {
+                $query = $this->createQueryBuilder('q')
+                    ->where('q.agence = :agence')
+                    ->andWhere("q.createdAt LIKE '$now%'")
+                    ->setParameter('agence', $agence);
+            }
+        }
+
+        return $query->orderBy('q.id', 'ASC')
             ->getQuery()
             ->getResult();
-
-        return $query;
     }
 }

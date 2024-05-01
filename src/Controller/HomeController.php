@@ -28,6 +28,8 @@ class HomeController extends BaseController
 
         return $this->render('home/home.html.twig', [
             'queued' => $queued,
+            'profil' => $profil,
+            'user' => $user
         ]);
     }
 

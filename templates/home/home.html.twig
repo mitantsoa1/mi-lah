@@ -63,6 +63,12 @@
 						{%  set class = "btn-success" %}
 						{% set disabled = 'disabled' %}
 					{% endif %}
+
+					{% if profil != 1 and profil != 2 %}
+						{% set disabled = 'disabled' %}
+						{% set titre = '' %}
+					{% endif %}
+
 					<tr>
 						<td>{{ queue.id }}</td>
 						<td>{{ queue.position }}</td>
@@ -71,6 +77,7 @@
 						<td>{{ queue.user }}</td>
 						<td>{{ queue.createdAt|date('Y-m-d : H:i:s') }}</td>
 						<td>{{ updatedAt  }}</td>
+
 						<td>
 							<button type="button" class="btn btn-small {{ class }} action" value="{{ queue.type|first ~ queue.numero}}-{{ queue.status }}" data-toggle="tooltip" data-placement="bottom" title="{{ titre }}" {{ disabled }} data-id="{{ queue.id }}">{{ status }}</button>
 
