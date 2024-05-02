@@ -1,0 +1,8 @@
+easy_admin:
+  design:
+    menu_icon_show_labels: false
+  # formats:
+  #   datetime: d/m/Y H:i:s
+  #   date: d/m/Y
+  #   time: H:i:s
+  translation_domain: "fr"

@@ -22,6 +22,8 @@ class OperationCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('libelle', 'Libellé'),
             TextField::new('description', 'Description'),
+            // TextField::new('type', 'Type')->setFormTypeOption(['attr' => ['placeholder' => '']]),
+            TextField::new('type', 'Type')->setFormTypeOptions(['attr' => ['placeholder' => 'ESP|CHQ|...']]),
             AssociationField::new('fonction')
         ];
     }

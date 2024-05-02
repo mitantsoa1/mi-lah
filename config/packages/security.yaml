@@ -41,6 +41,8 @@ security:
   access_control:
     - { path: ^/admin, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
+    # - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Autoriser l'accès à la route de connexion pour les utilisateurs non connectés
+    # - { path: ^/(?!login), roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
   security:

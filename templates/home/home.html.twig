@@ -24,8 +24,8 @@
 
 		<table class="table table-stripped table-bordered queued">
 			<thead>
-				<th>ID</th>
-				<th>Position</th>
+				{# <th>ID</th>
+								<th>Position</th> #}
 				<th>Type</th>
 				<th>Ticket</th>
 				<th>User</th>
@@ -70,8 +70,8 @@
 					{% endif %}
 
 					<tr>
-						<td>{{ queue.id }}</td>
-						<td>{{ queue.position }}</td>
+						{# <td>{{ queue.id }}</td>
+																		<td>{{ queue.position }}</td> #}
 						<td>{{ queue.type }}</td>
 						<td>{{ queue.type|first ~ queue.numero}}</td>
 						<td>{{ queue.user }}</td>

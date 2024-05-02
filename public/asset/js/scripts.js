@@ -89,8 +89,20 @@
           data: { id: id, ticket: numTicket, stat: stat }, // Données à envoyer avec la requête (optionnel)
           success: function (response) {
             if (response) {
-              Swal.fire("Effectué", "", "success");
-              window.location.reload();
+              Swal.fire({
+                title: "Effectué",
+                icon: "success",
+                showCancelButton: false, // Afficher le bouton Annuler
+                confirmButtonText: "OK",
+                cancelButtonText: "Non, ne pas recharger",
+                allowOutsideClick: false,
+              }).then((result) => {
+                // Si l'utilisateur clique sur le bouton de confirmation
+                if (result.isConfirmed) {
+                  // Actualiser la page
+                  window.location.reload();
+                }
+              });
             }
           },
           error: function (xhr, status, error) {

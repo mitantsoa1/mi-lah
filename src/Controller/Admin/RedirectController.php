@@ -24,7 +24,7 @@ class RedirectController extends AbstractController
     }
 
     #[Route('/', name: 'app_redirect')]
-    public function index(UserRepository $userRepository): Response
+    public function index(): Response
     {
 
         $token = $this->tokenStorage->getToken();

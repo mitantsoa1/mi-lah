@@ -9,6 +9,7 @@ use App\Repository\FonctionRepository;
 use App\Repository\OperationRepository;
 use App\Repository\QueuedRepository;
 use App\Service\HomeService;
+use App\Service\RedirectService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends BaseController
 {
+
     #[Route('/home', name: 'home')]
     public function index(QueuedRepository $repository): Response
     {
         $user = $this->getUser();
+
+        if (!$user) return $this->redirectToRoute('app_login');
+
         $profil = $user->getFonction()->getId();
 
         $agence = $user->getAgence()->getId();
@@ -37,6 +42,8 @@ class HomeController extends BaseController
     public function reception(OperationRepository $repo): Response
     {
         $user = $this->getUser();
+        if (!$user) return $this->redirectToRoute('app_login');
+
         $operations = $repo->findBy([], ['fonction' => 'ASC']);
         return $this->render('home/reception.html.twig', [
             'operations' => $operations,
@@ -47,6 +54,9 @@ class HomeController extends BaseController
     #[Route('/addQueue', name: 'addQueue')]
     public function addQueue(Request $request, HomeService $homeService, FonctionRepository $repo)
     {
+        // $user = $this->redirectService->index();
+        // if (!$user) return $this->redirectToRoute('app_login');
+
         $value = $request->request->get('value');
         $type = $request->request->get('ticket');
         $agence = $request->request->get('agence');
@@ -82,6 +92,7 @@ class HomeController extends BaseController
         $queued->setAgence($agence);
         $queued->setCreatedAt(new \DateTimeImmutable());
 
+        // dd($queued);
         $this->save($queued);
 
         $numeroTicket = substr($type, 0, 1) . $queued->getNumero();
@@ -92,6 +103,9 @@ class HomeController extends BaseController
     #[Route('/editQueue', name: 'editQueue')]
     public function editQueue(Request $request, QueuedRepository $repo)
     {
+        // $user = $this->redirectService->index();
+        // if (!$user) return $this->redirectToRoute('app_login');
+
         $id = $request->request->get('id');
         $ticket = $request->request->get('ticket');
         $status = $request->request->get('stat');
