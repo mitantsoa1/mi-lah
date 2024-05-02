@@ -5,14 +5,13 @@ namespace App\Controller;
 use App\Entity\Operation;
 use App\Controller\BaseController;
 use App\Entity\Queued;
+use App\Entity\User;
 use App\Repository\FonctionRepository;
 use App\Repository\OperationRepository;
 use App\Repository\QueuedRepository;
 use App\Service\HomeService;
-use App\Service\RedirectService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends BaseController

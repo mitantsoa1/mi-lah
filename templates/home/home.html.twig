@@ -22,10 +22,10 @@
 
 	<div class="example-wrapper">
 
-		<table class="table table-stripped table-bordered queued">
+		<table class="table table-stripped table-bordered queued" id="list_queued">
 			<thead>
 				{# <th>ID</th>
-								<th>Position</th> #}
+																								<th>Position</th> #}
 				<th>Type</th>
 				<th>Ticket</th>
 				<th>User</th>
@@ -71,7 +71,7 @@
 
 					<tr>
 						{# <td>{{ queue.id }}</td>
-																		<td>{{ queue.position }}</td> #}
+																																										<td>{{ queue.position }}</td> #}
 						<td>{{ queue.type }}</td>
 						<td>{{ queue.type|first ~ queue.numero}}</td>
 						<td>{{ queue.user }}</td>
@@ -91,4 +91,5 @@
 	<script src="{{ asset('asset/js/scripts.js')}}"></script>
 
 
-</div>{% endblock %}
+</div>{% endblock %}{% block javascripts %}
+{{ include('admin/components/block/blockjs.datatable.html.twig', { 'table_id': 'list_queued', 'targets': 4 }) }}{% endblock %}
