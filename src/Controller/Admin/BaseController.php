@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 
 use Doctrine\ORM\EntityRepository;
@@ -14,41 +14,41 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 abstract class BaseController extends AbstractController
 {
     /**
      * @var ContainerInterface
      */
-    //   protected $container;
+    // protected $container;
     protected $parameter;
     protected $serializer;
     protected $entityManager;
-    protected $passwordEncoder;
+    protected $passwordHasher;
     protected $propertyMappingFactory;
 
     /**
      * BaseController constructor.
      * @param SerializerInterface $serializer
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserPasswordHasherInterface $passwordHasher
      * @param PropertyMappingFactory $propertyMappingFactory
      * @param ContainerInterface $container , 
      */
     public function __construct(
         SerializerInterface $serializer,
-        // UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordHasher,
         // PropertyMappingFactory $propertyMappingFactory , 
         EntityManagerInterface $entityManager,
-        // ContainerInterface $container ,
+        // ContainerInterface $container,
         ParameterBagInterface $parameter
     ) {
         $this->serializer = $serializer;
         // $this->container        = $container;
         $this->parameter        = $parameter;
         $this->entityManager    = $entityManager;
-        // $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         // $this->propertyMappingFactory = $propertyMappingFactory;
     }
 

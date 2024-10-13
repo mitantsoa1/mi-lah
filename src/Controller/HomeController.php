@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Operation;
-use App\Controller\BaseController;
+use App\Controller\Admin\BaseController;
 use App\Entity\Queued;
 use App\Entity\User;
 use App\Repository\FonctionRepository;

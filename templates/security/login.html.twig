@@ -59,11 +59,15 @@
 							<form method="post">
 
 								{% if error %}
-									<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+									<div class="alert alert-danger p-2">
+										<center>
+											{{ error.messageKey|trans(error.messageData, 'security') }}</center>
+									</div>
+
 								{% endif %}
 
 								{% if app.user %}
-									<div class="mb-3">
+									<div class="mb-3 alert alert-danger p-2">
 										You are logged in as
 										{{ app.user.userIdentifier }},
 										<a href="{{ path('app_logout') }}">Logout</a>
@@ -107,7 +111,7 @@
 										<form class="auth-login-form mt-2" action="index.html" method="POST">
 											<div class="form-group">
 												<label for="login" class="form-label">Login</label>
-												<input type="text" class="form-control" value="{{ last_username }}" name="login" id="inputLogin" placeholder="John" aria-describedby="login-login" tabindex="1" autofocus/>
+												<input type="text" class="form-control" value="{{ last_username }}" name="login" id="inputLogin" placeholder="John" aria-describedby="login-login" tabindex="1" autofocus required/>
 
 											</div>
 
@@ -120,6 +124,7 @@
 												</div>
 												<div class="input-group input-group-merge form-password-toggle">
 													<input type="password" class="form-control form-control-merge" name="password" id="inputPassword" class="form-control" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password"/>
+
 
 													<div class="input-group-append">
 														<span class="input-group-text cursor-pointer">
